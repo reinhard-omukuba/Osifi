@@ -10,6 +10,7 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -28,7 +29,7 @@
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
 
-            <div class="profileDataCont">
+            <div class="profileDataCont ">
                 <div class="dropdown" style="margin-right:10px;">
                     <a class="dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                     </a>
@@ -78,7 +79,7 @@
                   <a class="nav-link" href="expenses.html"> <i class="bi bi-currency-dollar"></i> Expenses</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="expenses.html"> <i class="bi bi-bank"></i> Recurrent Bills</a>
+                    <a class="nav-link" href="expenses.html"> <i class="bi bi-bank"></i> Recurrent Bills</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link " href="finance-settings.html"> <i class="bi bi-gear-fill"></i> Settings</a>
@@ -116,28 +117,30 @@
         <!-- Main Sec start -->
         <div class="mainContSection">
 
-            <h3>Dashboard</h3>
-            <div>
-                <div class="theSnippets bg-warning" >
-                    <h6>Total Income this Today</h6>
-                    <h4>KES. 20,000</h4>
-                </div>
-    
-                <div class="theSnippets bg-success text-white" >
-                    <h6>Total Income this month</h6>
-                    <h4>KES. 20,000</h4>
-                </div>
-                <div class="theSnippets bg-danger text-white" >
-                    <h6>Total Expense Today</h6>
-                    <h4>KES. 20,000</h4>
-                </div>
-                <div class="theSnippets bg-primary text-white" >
-                    <h6>Total Expense this Month</h6>
-                    <h4>KES. 20,000</h4>
-                </div>
+            <div class="topHead">
+                <h3>Expenses</h3>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Expense</button>
             </div>
 
-            <canvas id="myChart" class="myChart"></canvas>
+            <br> <br>
+            <table class="table table-dark  table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Expense Type</th>
+                    <th scope="col">Spent On</th>
+                    <th scope="col">Expense Date</th>
+                    <th scope="col">Expense Amount</th>
+                    <th scope="col">Payment Method</th>
+                    <th scope="col">Authorised By</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody id="expenseList">
+                  
+                </tbody>
+              </table>
+            
+           
            
 
 
@@ -146,8 +149,53 @@
 
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="JS/dashboard.js"></script>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Expense</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="" class="form-label">Expense Type</label>
+                <select name="" id="expenseType" class="form-control">  
+                    <option value=""></option>              
+                    <option value="Petty Cash">Petty Cash</option>
+                    <option value="Recurrent Expenses">Recurrent Expenses</option>
+                    <option value="Other Expenses">Other Expenses</option>
+                </select>
+                <br>
+                <input type="text" id="exAmount" class="form-control" placeholder="Amount"> <br>
+                <input  class="form-control" id="exDate" type="datetime-local"> <br>
+                <input type="text"  class="form-control" id="authorisedBy" placeholder="Authorised by"> <br>
+                <label for="" class="form-label">Payment Menthod</label>
+                <select name="" id="paymentMethod"  class="form-control">
+                    
+                </select>
+                <br>
+                <label for="" class="form-label">Spent on</label> 
+                <input type="text" id="spentOn"  class="form-control" style="display: none;" placeholder="spent On">
+                <select name="" id="allBills"  class="form-control" style="display: none;">
+                    
+                </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" id="addExpense" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-firestore.js"></script>
+
+  <script src="js/config.js"></script>
+  <script src="js/expenses.js"></script>
     
 </body>
 </html>
+
