@@ -120,7 +120,7 @@
             <div>
                 <div class="theSnippets bg-warning" >
                     <h6>Total Income this Today</h6>
-                    <h4>KES. 20,000</h4>
+                    <h4 id="todaysIncome">0</h4>
                 </div>
     
                 <div class="theSnippets bg-success text-white" >
@@ -129,7 +129,7 @@
                 </div>
                 <div class="theSnippets bg-danger text-white" >
                     <h6>Total Expense Today</h6>
-                    <h4>KES. 20,000</h4>
+                    <h4 id="todaysExpense"></h4>
                 </div>
                 <div class="theSnippets bg-primary text-white" >
                     <h6>Total Expense this Month</h6>
@@ -145,7 +145,11 @@
         <!-- MainSec End -->
 
     </section>
-
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-firestore.js"></script>
+    <script src="js/config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="JS/dashboard.js"></script>
     

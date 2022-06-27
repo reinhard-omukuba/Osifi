@@ -1,3 +1,4 @@
+//graph
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'line',
@@ -58,3 +59,70 @@ const myChart = new Chart(ctx, {
         }
     }
 });
+
+
+//calculate income today
+firebase.firestore().collection("income").get().then((querySnapshot)=>{
+    let income = 0;
+    querySnapshot.forEach((doc)=>{
+
+        let incomeAmount = doc.data().inAmount;
+        let incomeDate =  doc.data().incDate;
+        let conAmou = parseInt(incomeAmount)
+
+
+        //getting todays date
+        let todaysDate = new Date();
+        let thisYear = todaysDate.getFullYear();
+        let thisMonth = todaysDate.getMonth();
+
+        thisMonth = thisMonth + 1;
+
+        if(thisMonth < 10){
+           
+            thisMonth = "0" + thisMonth
+        }
+
+        let thisDate = todaysDate.getDate();
+        let todaysFullDate = thisYear + "-" +  thisMonth + "-" + thisDate;
+
+
+
+        //splitting time from date
+        let splitDate = incomeDate.split("T");
+        let firstIndex = splitDate[0]
+
+
+        console.log(todaysFullDate);
+        console.log(firstIndex)
+
+
+        if(todaysFullDate == firstIndex){
+
+            income = conAmou + income;
+
+        }
+
+
+     
+    })
+
+    function toCommas(value){
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    document.getElementById("todaysIncome").innerText = "KES." + toCommas(income);
+})
+
+
+//calculate expense
+firebase.firestore().collection("expense").get().then((querySnapshot)=>{
+    let expense = 0;
+    querySnapshot.forEach((doc)=>{
+        let theExpense = doc.data().exAmount;
+        let conExpense= parseInt(theExpense);
+
+        expense += conExpense;
+    })
+    document.getElementById("todaysExpense").innerText = expense;
+})
