@@ -1,5 +1,6 @@
 //graph
 const ctx = document.getElementById('myChart').getContext('2d');
+
 const myChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -87,14 +88,9 @@ firebase.firestore().collection("income").get().then((querySnapshot)=>{
         let todaysFullDate = thisYear + "-" +  thisMonth + "-" + thisDate;
 
 
-
         //splitting time from date
         let splitDate = incomeDate.split("T");
         let firstIndex = splitDate[0]
-
-
-        console.log(todaysFullDate);
-        console.log(firstIndex)
 
 
         if(todaysFullDate == firstIndex){
@@ -102,7 +98,6 @@ firebase.firestore().collection("income").get().then((querySnapshot)=>{
             income = conAmou + income;
 
         }
-
 
      
     })
